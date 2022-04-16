@@ -12,5 +12,9 @@
 }, {}, [3, [false, true, false]]] call cba_fnc_addKeybind; 
 ["WebKnight's Force Use addition", "adik_ForceUse_Choke", [localize "STR_SW_FORCECHOKE", "Make youre enemy choke!"], { 
 [player, 5] execVM "\adik_force\ForceUse.sqf";
-}, {}, [4, [false, true, false]]] call cba_fnc_addKeybind; 
+}, {}, [4, [false, true, false]]] call cba_fnc_addKeybind;
+["WebKnight's Force Use addition", "adik_ForceUse_stun", [localize "STR_SW_FORCESTUN", "Make youre enemy stun!"], { 
+[player, 6] execVM "\adik_force\ForceUse.sqf";
+}, {}, [8, [false, true, false]]] call cba_fnc_addKeybind; 
+
 

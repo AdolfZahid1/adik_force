@@ -92,7 +92,7 @@ sleep 1;
 
 if (_stance == 2) exitWith {
 ////Полный стан 
-if ("Force_stun" in magazines _unit) then {
+if ("Force_freeze" in magazines _unit) then {
 if (_unit getVariable "IMS_LaF_ForceMana" > 0.3) then {
 _unit setVariable ["canMakeAttack",1];
 _mana = _unit getVariable "IMS_LaF_ForceMana";
@@ -406,5 +406,35 @@ sleep 0.001;
 _unit setVariable ["canMakeAttack",0];
 };
 };
+};
+};
+if (_stance == 6) exitWith {
+  if ("Force_oglushenie" in magazines _unit) then {
+// оглушение
+if ((PlayerForceMana == 0) and (cursorObject isKindOf "MAN")) then {
+_actualEnemy = cursorObject;
+if ((_actualEnemy distance _unit) > 5) exitWith {};
+    []spawn{
+      _actualEnemy setUnconscious true;
+      sleep 15;
+      _actualEnemy setUnconscious false;
+    };
+    _mana = _unit getVariable "IMS_LaF_ForceMana";
+    _mana = _mana - 0.3;
+    _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
+    [_unit, "random_shhh", 20, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+}else{
+  if (("WBK_Baf_Freeze" in magazines _actualEnemy)) then {
+  [_actualEnemy, "STAR_WARS_baf_work"] remoteExec ["playActionNow"];
+  [_actualEnemy] spawn {
+_unit = _this select 0;
+if (isStaminaEnabled _unit) then {
+    _unit allowSprint false;
+    [_unit, false] remoteExec ["allowSprint"];
+    sleep 0.8;
+    [_unit, true] remoteExec ["allowSprint"];
+  };
+};
+}
 };
 };
