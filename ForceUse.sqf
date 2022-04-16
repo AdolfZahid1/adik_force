@@ -435,6 +435,7 @@ if (isStaminaEnabled _unit) then {
     [_unit, true] remoteExec ["allowSprint"];
   };
 };
-}
+};
+};
 };
 };
