@@ -408,6 +408,10 @@ _unit setVariable ["canMakeAttack",0];
 };
 };
 };
+
+
+
+
 if (_stance == 6) exitWith {
 if ("Force_oglushenie" in magazines _unit) then {
 ////Оглушение ace3
@@ -480,7 +484,7 @@ if (handgunWeapon _x in IMS_LightSabers) exitWith {
 [_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
 _x spawn {
 sleep 6;
-[_this, true, 5, true] call ace_medical_fnc_setUnconscious;
+[_this, true, 10, true] remoteExec ["ace_medical_fnc_setUnconscious",_this];
 };
 };
 } forEach nearestObjects [_unit, ["MAN"], 13];

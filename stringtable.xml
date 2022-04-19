@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Key ID="STR_SW_FORCESTUN">
-	<Original>&lt;Force stun&lt;</Original>
-</Key>
+<Project name='Arma3'>
+	<Package name='StarWars_Lightsaber_localization'>
+		<Container name='Lighsaber'>
+			<Key ID="STR_SW_FORCESTUN">
+				<English>Force stun</English>
+				<Russian>Оглушение Силы</Russian>
+			</Key>
+		</Container>
+	</Package>	
+</Project>
