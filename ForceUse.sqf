@@ -409,24 +409,50 @@ _unit setVariable ["canMakeAttack",0];
 };
 };
 if (_stance == 6) exitWith {
-  if ("Force_oglushenie" in magazines _unit) then {
-// оглушение
-if ((PlayerForceMana == 0) and (cursorObject isKindOf "MAN")) then {
-_actualEnemy = cursorObject;
-if ((_actualEnemy distance _unit) > 5) exitWith {};
-    []spawn{
-      _actualEnemy setUnconscious true;
-      sleep 15;
-      _actualEnemy setUnconscious false;
-    };
-    _mana = _unit getVariable "IMS_LaF_ForceMana";
-    _mana = _mana - 0.3;
-    _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
-    [_unit, "random_shhh", 20, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+if ("Force_oglushenie" in magazines _unit) then {
+////Оглушение ace3
+if (_unit getVariable "IMS_LaF_ForceMana" > 0.15) then {
+_unit setVariable ["canMakeAttack",1];
+_mana = _unit getVariable "IMS_LaF_ForceMana";
+_mana = _mana - 0.15;
+_unit setVariable ["IMS_LaF_ForceMana",_mana,true];
+[_unit,  "STAR_WARS_FIGHT_POWERS_PULL"] remoteExec ["switchMove", 0];
+_unit allowDamage false;
+{
+if ((alive _x) and !(isPlayer _x) and (handgunWeapon _x in IMS_Melee_Weapons)) then {
+if (((_x worldToModel (_unit modelToWorld [0, 0, 0])) select 1) < 0) then 
+{
+[_x, [9, 9, 1.5], "starWars_landRoll"] spawn strafeFwrd_SW;
 }else{
-  if (("WBK_Baf_Freeze" in magazines _actualEnemy)) then {
-  [_actualEnemy, "STAR_WARS_baf_work"] remoteExec ["playActionNow"];
-  [_actualEnemy] spawn {
+[_x, [-9, -9, 1.5], "starWars_landRoll_b"] spawn strafeFwrd_SW;
+};
+};
+} forEach nearestObjects [_unit, ["Man"], 10];
+sleep 0.4;
+if (!(alive _unit) or !(animationState _unit == "STAR_WARS_FIGHT_POWERS_PULL")) exitWith {};
+[_unit,  [11 * (sin (getdir _unit )), 11 * (cos (getdir _unit)), 1.2]] remoteExec ["setvelocity", 0, true];
+[_unit, {
+_dustEffect = "#particlesource" createVehicleLocal getPosATL _this; 
+_dustEffect setParticleClass "HDustVTOL1"; 
+_dustEffect attachto [_this,[0,0,0]];
+_ripple = "#particlesource" createVehicleLocal getposatl _this;
+_ripple setParticleCircle [0,[0,0,0]];
+_ripple setParticleRandom [0,[0.25,0.25,0],[0.175,0.175,0],0,0.25,[0,0,0,0.1],0,0];
+_ripple setParticleParams [["\A3\data_f\ParticleEffects\Universal\Refract.p3d",1,0,1], "", "Billboard", 1, 0.5, [0, 0, 0], [0, 0, 0],0,10,7.9,0, [10,10], [[1, 1, 1, 1], [1, 1, 1, 1]], [0.08], 1, 0, "", "", _this];
+_ripple setDropInterval 0.01;
+_ripple attachto [_this,[0,0,0]];
+sleep 1.1;
+deleteVehicle _ripple;
+deleteVehicle _dustEffect;
+}] remoteExec ["spawn", [0,-2] select isDedicated,false];
+[_unit, "FP_Pull", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+{
+if (!(_x == _unit) and (((_unit worldToModel (_x modelToWorld [0, 0, 0])) select 1) > 0)) then {
+if (!(WBK_ParamForceKillFriendlies) and (side _x == side _unit)) exitWith {};
+if ((animationState _x == "starWars_landRoll") or (animationState _x == "starWars_landRoll_b")) exitWith {};
+if (("WBK_Baf_Push" in magazines _x)) exitWith {
+[_x, "STAR_WARS_baf_work"] remoteExec ["playActionNow"];
+[_x] spawn {
 _unit = _this select 0;
 if (isStaminaEnabled _unit) then {
     _unit allowSprint false;
@@ -436,6 +462,45 @@ if (isStaminaEnabled _unit) then {
   };
 };
 };
+if ((_x getVariable "actualSwordBlock" == 1)) exitWith {
+_x setVariable ["AI_CanTurn",1, true];
+_sas = getDirVisual _unit;
+[_x,  [9 * (sin (_sas)), 9 * (cos (_sas)), 2]] remoteExec ["setvelocity", _x];
+[_x,228,_unit] spawn concentrationToZero;
+};
+
+if (handgunWeapon _x in IMS_LightSabers) exitWith {
+[_x, (_x getDir _unit)] remoteExec ["setDir", _x];
+[[_x, 30],  SW_PushCloser] remoteExec ["spawn", _x];
+};
+
+
+[_x, (_x getDir _unit)] remoteExec ["setDir", _x];
+[_x, [_x vectorModelToWorld [0,900,100], _x selectionPosition "head"]] remoteExec ["addForce", _x];
+[_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+_x spawn {
+sleep 6;
+[_this, true, 5, true] call ace_medical_fnc_setUnconscious;
+};
+};
+} forEach nearestObjects [_unit, ["MAN"], 13];
+sleep 0.6;
+if (!(alive _unit) or !(animationState _unit == "STAR_WARS_FIGHT_POWERS_PULL")) exitWith {};
+_unit setVariable ["canMakeAttack",0];
+sleep 0.3;
+if (!(alive _unit) or !(animationState _unit == "STAR_WARS_FIGHT_POWERS_PULL")) exitWith {};
+if (currentWeapon _unit in IMS_Melee_Weapons) then {
+[_unit, "melee_armed_idle"] remoteExec ["switchMove", 0];
+}else{
+[_unit, ""] remoteExec ["switchMove", 0];
 };
 };
 };
+};
+
+
+
+
+
+
+
