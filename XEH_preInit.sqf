@@ -14,7 +14,7 @@
 [player, 5] execVM "\adik_force\ForceUse.sqf";
 }, {}, [4, [false, true, false]]] call cba_fnc_addKeybind;
 ["WebKnight's Force Use addition", "adik_ForceUse_Destroy", [localize "STR_SW_DSTR", "Destroy vehicle infront of you!"], { 
-[player, 7] execVM "\adik_force\ForceUse.sqf";
+[player, 6] execVM "\adik_force\ForceUse.sqf";
 }, {}, [8, [false, true, false]]] call cba_fnc_addKeybind; 
 
 

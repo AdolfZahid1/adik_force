@@ -407,34 +407,34 @@ _unit setVariable ["canMakeAttack",0];
 };
 };
 };
-};
 
 
 
 
 
-if (_stance == 7) exitWith{
-  if ("Force_tir_3" in magazines _unit) then {
-    hint "start executing";
-    hint str cursorObject;
+
+if (_stance == 6) exitWith{
+  if (handgunMagazine _unit find "WBK_Cybercrystal"!= -1) then {
+    if (getVariable "concentrationParam" < 0.5) exitWith {};
+    _stamina = _unit getVariable "concentrationParam";
       if ((cursorObject isKindOf "Tank") || (cursorObject isKindOf "Plane") || (cursorObject isKindOf "Car") || (cursorObject isKindOf "Air"))then{
         _actualTarget= cursorObject;
         hint "Found target";
         if (!(alive _actualTarget)) exitWith {};
-        if (_unit distance _actualTarget <=10)then{
-          hint "Killing target";
-          []spawn{
+        if (_unit distance _actualTarget <=2)then{
+          _stamina = _stamina - 0.5;
+          _unit setVariable ["concentrationParam",_stamina,true];
             _unit allowDamage false;
             [_unit,"starWars_lightsaber_lightattack1"] remoteExec ["switchMove",0];
             _arr = parseSimpleArray getText (configFile >> "CfgWeapons" >> handgunWeapon _unit >> "IMS_Melee_Param_SoundsOnHit");  
             _rndSnd = selectRandom _arr;  
             [_unit, _rndSnd, 50, 3] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
-            [_actualTarget, ["hithull", 1, true, _unit]] remoteExec ["setHitPointDamage", 0];
+            [_actualTarget, ["hithull", 0.5, true, _unit]] remoteExec ["setHitPointDamage", 0];
             [_actualTarget, ["hitturret", 1, true, _unit]] remoteExec ["setHitPointDamage", 0];
             [_actualTarget, ["hitgun", 1, true, _unit]] remoteExec ["setHitPointDamage", 0];
             sleep 1.5;
+            [_unit,""]remoteExec ["switchMove",0];
             _unit allowDamage true;
-          };
         };
       };
   };
