@@ -39,7 +39,7 @@ class CfgMagazines
 	{
 		displayName="Force fireball";
 	};
-		class Force_oglushenie: Force_choke
+	class Force_oglushenie: Force_choke
 	{
 		displayName="Force stun";
 	};
