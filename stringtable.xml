@@ -6,6 +6,10 @@
 				<English>Force stun</English>
 				<Russian>Оглушение Силы</Russian>
 			</Key>
+			<Key ID = "STR_SW_DSTR">
+				<English>Destroy vehicle</English>
+				<Russian>Разрушить технику</Russian>
+			</Key>
 		</Container>
 	</Package>	
 </Project>
