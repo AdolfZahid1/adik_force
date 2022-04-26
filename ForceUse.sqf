@@ -438,8 +438,12 @@ if (_stance == 6) exitWith{
             [_x,1] remoteExec ["setDamage", 0];
             } forEach _crew;
             sleep 1.5;
-            [_unit,"melee_armed_idle"]remoteExec ["switchMove",0];
             _unit allowDamage true;
+            if (currentWeapon _unit in IMS_Melee_Weapons) then {
+            [_unit, "melee_armed_idle"] remoteExec ["switchMove", 0];
+            }else{
+            [_unit, ""] remoteExec ["switchMove", 0];
+            };
           };
         };
       };
@@ -447,11 +451,47 @@ if (_stance == 6) exitWith{
 };
 
 
-// if (_stance == 7){
-//   if ("Force_oglushenie" in magazines _unit)exitWith{
-
-//   };
-// };
+if (_stance == 7)exitWith{
+  //оглушение эйс типа
+   if ("Force_oglushenie" in magazines _unit)then{
+     if (!(alive _unit))exitWith{};
+      if (_unit getVariable "IMS_LaF_ForceMana" > 0.15)then{
+        _mana= _unit getVariable "IMS_LaF_ForceMana";
+        _mana=_mana - 0.15;
+        _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
+        [_unit,  "STAR_WARS_FIGHT_POWERS_PULL"] remoteExec ["switchMove", 0];
+        _unit allowDamage false;
+        {_x spawn{
+         [_this,true,15,true]remoteExecCall ["ace_medical_fnc_setUnconscious",0]; 
+          [_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+        };} forEach nearestObjects [_unit, ["Man"], 10];
+        sleep 0.4;
+        if (currentWeapon _unit in IMS_Melee_Weapons) then {
+          [_unit, "melee_armed_idle"] remoteExec ["switchMove", 0];
+        }else{
+          [_unit, ""] remoteExec ["switchMove", 0];
+        };
+      };
+   };
+};
+if (_stance == 8) exitWith {
+  // заставить юнита сдатся
+  if ("Force_conviction")then{
+    if(!(alive _unit))exitWIth{};
+    if (_unit getVariable "IMS_LaF_ForceMana" > 0.3)then{
+      _mana = _unit getVariable "IMS_LaF_ForceMana";
+      _mana=_mana-0.3;
+      _unit setVariable["IMS_LaF_ForceMana",_mana,true];
+      [_unit,  "STAR_WARS_FIGHT_POWERS_CRYOORPYRO"] remoteExec ["switchMove", 0];
+      {_x spawn{
+        private _weaponHolder = "GroundWeaponHolder_Scripted" createVehicle getPosATL player;
+        [_x,"DropWeapon", _weaponHolder, currentWeapon _x]remoteExec["action",0];
+        sleep 2;
+        [_x,"Surrender",_x]remoteExec["action",0];
+      };} forEach nearestObjects [_unit, ["Man"], 10];
+    };
+  };
+};
 
 
 

@@ -43,4 +43,8 @@ class CfgMagazines
 	{
 		displayName="Force stun";
 	};
+	class Force_conviction: Force_choke
+	{
+		displayName="Force conviction";
+	};
 };
