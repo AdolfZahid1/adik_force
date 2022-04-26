@@ -3,12 +3,16 @@
 	<Package name='StarWars_Lightsaber_localization'>
 		<Container name='Lighsaber'>
 			<Key ID="STR_SW_FORCESTUN">
-				<English>Force stun</English>
-				<Russian>Оглушение Силы</Russian>
+				<English>Force stun (ace only!)</English>
+				<Russian>Оглушение Силы (ace only!)</Russian>
 			</Key>
 			<Key ID = "STR_SW_DSTR">
 				<English>Destroy vehicle</English>
 				<Russian>Разрушить технику</Russian>
+			</Key>
+			<Key ID = "STR_SW_CPTR">
+				<English>Capture enemy</English>
+				<Russian>Захватить цель</Russian>
 			</Key>
 		</Container>
 	</Package>	

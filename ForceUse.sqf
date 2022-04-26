@@ -488,7 +488,7 @@ if (_stance == 8) exitWith {
         [_x,"DropWeapon", _weaponHolder, currentWeapon _x]remoteExec["action",0];
         sleep 2;
         [_x,"Surrender",_x]remoteExec["action",0];
-      };} forEach nearestObjects [_unit, ["Man"], 10];
+      };} forEach nearestObjects [_unit, ["Man"], 5];
     };
   };
 };

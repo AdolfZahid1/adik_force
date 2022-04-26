@@ -1,7 +1,7 @@
 ["WebKnight's Force Use addition", "adik_ForceUse_Crush", [localize "STR_SW_FORCECRUSH", "Crush your enemy with a force!"], { 
 [player, 1] execVM "\adik_force\ForceUse.sqf";
 }, {}, [4, [false, true, false]]] call cba_fnc_addKeybind; 
-["WebKnight's Force Use", "WBK_ForceUse_Freeze", [localize "STR_SW_FORCEFREEZE", "Freeze enemy's in selected direction"], { 
+["WebKnight's Force Use addition", "adik_ForceUse_Freeze", [localize "STR_SW_FORCEFREEZE", "Freeze enemy's in selected direction"], { 
 [player, 2] execVM "\adik_force\ForceUse.sqf";
 }, {}, [20, [true, false, false]]] call cba_fnc_addKeybind; 
 ["WebKnight's Force Use addition", "adik_ForceUse_HealOther", [localize "STR_SW_FORCEHEALOTHER", "Heal other person using force"], { 
@@ -16,8 +16,11 @@
 ["WebKnight's Force Use addition", "adik_ForceUse_Destroy", [localize "STR_SW_DSTR", "Destroy vehicle infront of you!"], { 
 [player, 6] execVM "\adik_force\ForceUse.sqf";
 }, {}, [8, [false, true, false]]] call cba_fnc_addKeybind;
-// ["WebKnight's Force Use addition", "adik_ForceUse_Stun", [localize "STR_SW_FORCESTUN", "Destroy vehicle infront of you!"], { 
-// [player, 7] execVM "\adik_force\ForceUse.sqf";
-// }, {}, [8, [false, true, false]]] call cba_fnc_addKeybind;  
+["WebKnight's Force Use addition", "adik_ForceUse_Stun", [localize "STR_SW_FORCESTUN", "Set Unconscious enemy in front of you!"], { 
+[player, 7] execVM "\adik_force\ForceUse.sqf";
+}, {}, [8, [false, true, false]]] call cba_fnc_addKeybind;  
+["WebKnight's Force Use addition", "adik_ForceUse_Capture", [localize "STR_SW_CPTR", "Force enemy to surrender!"], { 
+[player, 8] execVM "\adik_force\ForceUse.sqf";
+}, {}, [8, [false, true, false]]] call cba_fnc_addKeybind;  
 
 
