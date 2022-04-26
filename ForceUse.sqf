@@ -461,11 +461,14 @@ if (_stance == 7)exitWith{
         _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
         [_unit,  "STAR_WARS_FIGHT_POWERS_PULL"] remoteExec ["switchMove", 0];
         _unit allowDamage false;
-        {_x spawn{
-         [_this,true,15,true]remoteExecCall ["ace_medical_fnc_setUnconscious",0]; 
-          [_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
-        };} forEach nearestObjects [_unit, ["Man"], 10];
-        sleep 0.4;
+        {
+          if ((alive _x) and !(isPlayer _x)) then {
+            [_x,true,15,true]remoteExecCall ["ace_medical_fnc_setUnconscious",0]; 
+            [_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+          };
+        } forEach nearestObjects [_unit, ["Man"], 10];
+        sleep 1;
+        _unit allowDamage true;
         if (currentWeapon _unit in IMS_Melee_Weapons) then {
           [_unit, "melee_armed_idle"] remoteExec ["switchMove", 0];
         }else{
@@ -474,21 +477,33 @@ if (_stance == 7)exitWith{
       };
    };
 };
+
+
+
+
 if (_stance == 8) exitWith {
   // заставить юнита сдатся
-  if ("Force_conviction")then{
-    if(!(alive _unit))exitWIth{};
+  if ("Force_conviction" in magazines _unit)then{
+    if(!(alive _unit))exitWith{};
     if (_unit getVariable "IMS_LaF_ForceMana" > 0.3)then{
       _mana = _unit getVariable "IMS_LaF_ForceMana";
       _mana=_mana-0.3;
       _unit setVariable["IMS_LaF_ForceMana",_mana,true];
       [_unit,  "STAR_WARS_FIGHT_POWERS_CRYOORPYRO"] remoteExec ["switchMove", 0];
       {_x spawn{
-        private _weaponHolder = "GroundWeaponHolder_Scripted" createVehicle getPosATL player;
-        [_x,"DropWeapon", _weaponHolder, currentWeapon _x]remoteExec["action",0];
-        sleep 2;
-        [_x,"Surrender",_x]remoteExec["action",0];
+        if ((alive _x) and !(isPlayer _x)) then {
+          private _weaponHolder = "GroundWeaponHolder_Scripted" createVehicle getPosATL player;
+          [_x,"DropWeapon", _weaponHolder, currentWeapon _x]remoteExec["action",0];
+          sleep 2;
+          [_x,"Surrender",_x]remoteExec["action",0];
+        };
       };} forEach nearestObjects [_unit, ["Man"], 5];
+        sleep 0.8;
+        if (currentWeapon _unit in IMS_Melee_Weapons) then {
+          [_unit, "melee_armed_idle"] remoteExec ["switchMove", 0];
+        }else{
+          [_unit, ""] remoteExec ["switchMove", 0];
+        };
     };
   };
 };
