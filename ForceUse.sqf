@@ -414,6 +414,7 @@ _unit setVariable ["canMakeAttack",0];
 
 
 if (_stance == 6) exitWith{
+  //рубануть технику
   if (("Force_tir_1" in magazines _unit) or ("Force_tir_2" in magazines _unit) or ("Force_tir_3" in magazines _unit) or ("Force_tir_Sith" in magazines _unit)) then {
       if ((cursorObject isKindOf "Tank") || (cursorObject isKindOf "Plane") || (cursorObject isKindOf "Car") || (cursorObject isKindOf "Air"))then{
         _actualTarget= cursorObject;
@@ -490,20 +491,18 @@ if (_stance == 8) exitWith {
       _mana=_mana-0.3;
       _unit setVariable["IMS_LaF_ForceMana",_mana,true];
       [_unit,  "STAR_WARS_FIGHT_POWERS_CRYOORPYRO"] remoteExec ["switchMove", 0];
-      {_x spawn{
+      { 
+        [_unit, "FP_Pull", 10, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
         if ((alive _x) and !(isPlayer _x)) then {
-          private _weaponHolder = "GroundWeaponHolder_Scripted" createVehicle getPosATL player;
-          [_x,"DropWeapon", _weaponHolder, currentWeapon _x]remoteExec["action",0];
-          sleep 2;
-          [_x,"Surrender",_x]remoteExec["action",0];
+          _unit action["Surrender",_x];
         };
-      };} forEach nearestObjects [_unit, ["Man"], 5];
-        sleep 0.8;
-        if (currentWeapon _unit in IMS_Melee_Weapons) then {
-          [_unit, "melee_armed_idle"] remoteExec ["switchMove", 0];
-        }else{
-          [_unit, ""] remoteExec ["switchMove", 0];
-        };
+      } forEach nearestObjects [_unit, ["Man"], 5];
+      sleep 2;
+      if (currentWeapon _unit in IMS_Melee_Weapons) then {
+        [_unit, "melee_armed_idle"] remoteExec ["switchMove", 0];
+      }else{
+        [_unit, ""] remoteExec ["switchMove", 0];
+      };
     };
   };
 };
