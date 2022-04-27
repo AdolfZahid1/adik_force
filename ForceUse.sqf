@@ -247,7 +247,7 @@ if (currentWeapon _unit in IMS_Melee_Weapons) then {
 
 if (_stance == 4) exitWith {
 ////Удушение
-if (("Force_tir_chokeold" in magazines _unit)) then {
+if ("Force_chokeold" in magazines _unit) then {
 if ((PlayerForceMana == 0) and (cursorObject isKindOf "MAN")) then {
 _actualEnemy = cursorObject;
 if ((_actualEnemy distance _unit) > 5) exitWith {};
@@ -422,7 +422,6 @@ if (_stance == 6) exitWith{
         _stamina = _unit getVariable "concentrationParam";
         if (!(alive _actualTarget)) exitWith {};
           if (_unit distance _actualTarget <=7)then{
-            hint "Found target";
             _stamina = _stamina - 0.5;
             _unit setVariable ["concentrationParam",_stamina,true];
             _unit allowDamage false;
@@ -462,8 +461,22 @@ if (_stance == 7)exitWith{
         _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
         [_unit,  "STAR_WARS_FIGHT_POWERS_PULL"] remoteExec ["switchMove", 0];
         _unit allowDamage false;
+        [_unit, "FP_Pull", 10, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+        _pid = getPlayerUID _unit;
         {
-          if ((alive _x) and !(isPlayer _x)) then {
+          if (("WBK_Baf_Push" in magazines _x)) exitWith {
+            [_x, "STAR_WARS_baf_work"] remoteExec ["playActionNow"];
+            [_x] spawn {
+            _unit = _this select 0;
+            if (isStaminaEnabled _unit) then {
+                _unit allowSprint false;
+                [_unit, false] remoteExec ["allowSprint"];
+                sleep 0.8;
+                [_unit, true] remoteExec ["allowSprint"];
+              };
+            };
+          };
+          if ((alive _x) and !(getPlayerUID _x == _pid))then {
             [_x,true,15,true]remoteExecCall ["ace_medical_fnc_setUnconscious",0]; 
             [_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
           };
@@ -493,8 +506,21 @@ if (_stance == 8) exitWith {
       [_unit,  "STAR_WARS_FIGHT_POWERS_CRYOORPYRO"] remoteExec ["switchMove", 0];
       { 
         [_unit, "FP_Pull", 10, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
+        if (("WBK_Baf_Push" in magazines _x)) exitWith {
+            [_x, "STAR_WARS_baf_work"] remoteExec ["playActionNow"];
+            [_x] spawn {
+            _unit = _this select 0;
+            if (isStaminaEnabled _unit) then {
+                _unit allowSprint false;
+                [_unit, false] remoteExec ["allowSprint"];
+                sleep 0.8;
+                [_unit, true] remoteExec ["allowSprint"];
+              };
+            };
+          };
         if ((alive _x) and !(isPlayer _x)) then {
-          _unit action["Surrender",_x];
+          //_unit action["Surrender",_x];
+          [_x, "Surrender"] remoteExec ["playActionNow", 0];
         };
       } forEach nearestObjects [_unit, ["Man"], 5];
       sleep 2;
