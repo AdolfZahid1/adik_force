@@ -21,6 +21,7 @@ class CfgMagazines
 	class Force_tir_3;
 	class Force_choke: Force_tir_3
 	{
+		author = "Adik";
 		displayName="Force crush";
 	};
 	class Force_freeze: Force_choke
@@ -46,5 +47,9 @@ class CfgMagazines
 	class Force_conviction: Force_choke
 	{
 		displayName="Force conviction";
+	};
+	class Force_ionize:Force_choke
+	{
+		displayName="Force ionization";
 	};
 };

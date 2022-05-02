@@ -462,7 +462,6 @@ if (_stance == 7)exitWith{
         [_unit,  "STAR_WARS_FIGHT_POWERS_PULL"] remoteExec ["switchMove", 0];
         _unit allowDamage false;
         [_unit, "FP_Pull", 10, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
-        _pid = getPlayerUID _unit;
         {
           if (("WBK_Baf_Push" in magazines _x)) exitWith {
             [_x, "STAR_WARS_baf_work"] remoteExec ["playActionNow"];
@@ -476,7 +475,7 @@ if (_stance == 7)exitWith{
               };
             };
           };
-          if ((alive _x) and !(getPlayerUID _x == _pid))then {
+          if ((alive _x) && (_x != _unit)))then {
             [_x,true,15,true]remoteExecCall ["ace_medical_fnc_setUnconscious",0]; 
             [_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
           };
@@ -518,7 +517,7 @@ if (_stance == 8) exitWith {
               };
             };
           };
-        if ((alive _x) and !(isPlayer _x)) then {
+        if ((alive _x) && (_x != _unit)) then {
           //_unit action["Surrender",_x];
           [_x, "Surrender"] remoteExec ["playActionNow", 0];
         };
@@ -533,6 +532,35 @@ if (_stance == 8) exitWith {
   };
 };
 
+
+
+if (_stance == 9)exitWith{
+  if ("Force_ionize" in magazines _unit)then{
+    if ((cursorObject isKindOf "Tank") || (cursorObject isKindOf "Plane") || (cursorObject isKindOf "Car") || (cursorObject isKindOf "Air"))then{
+    _actualTarget= cursorObject;
+    if (!(alive _unit) || !(alive _actualTarget))exitWith{};
+      if(_unit getVariable"IMS_LaF_ForceMana" > 0.4)then{
+        _mana = _unit getVariable "IMS_LaF_ForceMana";
+        _mana=_mana-0.4;
+        _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
+{        
+_x spawn {
+[_this, {
+_object = _this;
+_gravi1 = "#particlesource" createVehicle getpos _object;  
+_gravi1 setParticleCircle [0, [0.1, 0.1, 0.1]]; 
+_gravi1 setParticleRandom [0, [0, 0.1, 1], [0.1, 0, 0.1], 0, 0.1, [0, 0, 0, 0.1], 0, 0]; 
+_gravi1 setParticleParams [["\A3\data_f\ParticleEffects\Universal\Refract", 1, 0, 1], "", "Billboard", 1, 4, [0, 0, 0], [0, 0, 0.5], 9, 10, 7.9, 0.1, [0.6, 1, 0.9, 0.8], [[0.1, 0.1, 0.1, 1], [0.25, 0.25, 0.25, 0.5], [0.5, 0.5, 0.5, 0]], [0, 0.1, 0.2, 0.5, 0.1, 0.1], 0, 0, "", "", _object]; 
+_gravi1 setDropInterval 0.1;  
+sleep 4;
+deleteVehicle _gravi1;
+}] remoteExec ["spawn", [0,-2] select isDedicated,false];
+}forEach nearestObjects [_unit, ["MAN"],6]
+      };
+
+    };
+  };
+};
 
 
 
