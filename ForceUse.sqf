@@ -476,6 +476,10 @@ if (_stance == 7)exitWith{
               };
             };
           };
+<<<<<<< HEAD
+=======
+          if ((alive _x) && (_x != _unit)))then {
+>>>>>>> a9df9a2fb8a96f89ce2560a9571bdfbb15b8a1e3
             [_x,true,15,true]remoteExecCall ["ace_medical_fnc_setUnconscious",0]; 
             [_x, "dobi_fall", 70, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf";
           };
@@ -580,6 +584,35 @@ if (_stance==10)exitWith{
     };
   };
 };
+
+if (_stance == 9)exitWith{
+  if ("Force_ionize" in magazines _unit)then{
+    if ((cursorObject isKindOf "Tank") || (cursorObject isKindOf "Plane") || (cursorObject isKindOf "Car") || (cursorObject isKindOf "Air"))then{
+    _actualTarget= cursorObject;
+    if (!(alive _unit) || !(alive _actualTarget))exitWith{};
+      if(_unit getVariable"IMS_LaF_ForceMana" > 0.4)then{
+        _mana = _unit getVariable "IMS_LaF_ForceMana";
+        _mana=_mana-0.4;
+        _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
+{        
+_x spawn {
+[_this, {
+_object = _this;
+_gravi1 = "#particlesource" createVehicle getpos _object;  
+_gravi1 setParticleCircle [0, [0.1, 0.1, 0.1]]; 
+_gravi1 setParticleRandom [0, [0, 0.1, 1], [0.1, 0, 0.1], 0, 0.1, [0, 0, 0, 0.1], 0, 0]; 
+_gravi1 setParticleParams [["\A3\data_f\ParticleEffects\Universal\Refract", 1, 0, 1], "", "Billboard", 1, 4, [0, 0, 0], [0, 0, 0.5], 9, 10, 7.9, 0.1, [0.6, 1, 0.9, 0.8], [[0.1, 0.1, 0.1, 1], [0.25, 0.25, 0.25, 0.5], [0.5, 0.5, 0.5, 0]], [0, 0.1, 0.2, 0.5, 0.1, 0.1], 0, 0, "", "", _object]; 
+_gravi1 setDropInterval 0.1;  
+sleep 4;
+deleteVehicle _gravi1;
+}] remoteExec ["spawn", [0,-2] select isDedicated,false];
+}forEach nearestObjects [_unit, ["MAN"],6]
+      };
+
+    };
+  };
+};
+
 
 
 
