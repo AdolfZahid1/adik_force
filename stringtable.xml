@@ -14,6 +14,10 @@
 				<English>Capture enemy</English>
 				<Russian>Захватить цель</Russian>
 			</Key>
+			<Key ID = "STR_SW_PNMT">
+				<English>Pushup player</English>
+				<Russian>Заставить игрока отжиматся</Russian>
+			</Key>
 		</Container>
 	</Package>	
 </Project>

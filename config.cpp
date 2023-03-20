@@ -19,37 +19,21 @@ class Extended_PreInit_EventHandlers
 class CfgMagazines
 {
 	class Force_tir_3;
-	class Force_choke: Force_tir_3
+	class Force_oglushenie: Force_tir_3
 	{
 		author = "Adik";
-		displayName="Force crush";
+		displayName = "Force stun";
 	};
-	class Force_freeze: Force_choke
+	class Force_conviction: Force_oglushenie
 	{
-		displayName="Force freeze";
+		displayName  = "Force conviction";
 	};
-	class Force_healother: Force_choke
+	// class Force_ionize: Force_oglushenie
+	// {
+	// 	displayName = "Force ionization";
+	// };
+	class Force_speed: Force_oglushenie
 	{
-		displayName="Force heal other";
-	};
-	class Force_chokeold: Force_choke
-	{
-		displayName="Force choke";
-	};
-	class Force_fireball: Force_choke
-	{
-		displayName="Force fireball";
-	};
-	class Force_oglushenie: Force_choke
-	{
-		displayName="Force stun";
-	};
-	class Force_conviction: Force_choke
-	{
-		displayName="Force conviction";
-	};
-	class Force_ionize:Force_choke
-	{
-		displayName="Force ionization";
+		displayName = "Force speed";
 	};
 };
