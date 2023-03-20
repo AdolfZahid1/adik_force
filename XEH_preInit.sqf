@@ -13,3 +13,12 @@
 ["WebKnight's Force Use addition", "adik_ForceUse_Speed", [localize "STR_SW_SPD", "Speed up!"], { 
 [player, 5] execVM "\adik_force\ForceUse.sqf";
 }, {}, [8, [false, true, false]]] call cba_fnc_addKeybind;  
+["WebKnight's Force Use addition", "adik_ForceUse_Freeze", [localize "STR_SW_FORCEFREEZE", "Freeze enemy's in selected direction"], { 
+[player, 6] execVM "\adik_force\ForceUse.sqf";
+}, {}, [20, [true, false, false]]] call cba_fnc_addKeybind; 
+["WebKnight's Force Use addition", "adik_ForceUse_HealOther", [localize "STR_SW_FORCEHEALOTHER", "Heal other person using force"], { 
+[player, 7] execVM "\adik_force\ForceUse.sqf";
+}, {}, [2, [false, true, false]]] call cba_fnc_addKeybind;
+["WebKnight's Force Use addition", "adik_ForceUse_FireOrb", [localize "STR_SW_FORCEFIREORB", "Create fireball that will illuminate your surroundings"], { 
+[player, 8] execVM "\adik_force\ForceUse.sqf";
+}, {}, [8, [false, true, false]]] call cba_fnc_addKeybind; 
