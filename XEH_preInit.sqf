@@ -10,4 +10,6 @@
 ["WebKnight's Force Use addition", "adik_ForceUse_Punishment", [localize "STR_SW_PNMT", "Force player in front of you to pushup!"], { 
 [player, 4] execVM "\adik_force\ForceUse.sqf";
 }, {}, [8, [false, true, false]]] call cba_fnc_addKeybind;  
-
+["WebKnight's Force Use addition", "adik_ForceUse_Speed", [localize "STR_SW_SPD", "Speed up!"], { 
+[player, 5] execVM "\adik_force\ForceUse.sqf";
+}, {}, [8, [false, true, false]]] call cba_fnc_addKeybind;  

@@ -164,19 +164,33 @@ if (_stance == 4)exitWith{
 };
 
 if (_stance == 5)exitWith{
+  // Скорость Силы
   if (("Force_speed" in magazines _unit ) && (("Force_tir_1" in magazines _unit) or ("Force_tir_2" in magazines _unit) or ("Force_tir_3" in magazines _unit) or ("Force_tir_Sith" in magazines _unit)))then{
     if(!(alive _unit))exitWith{};
     if (_unit getVariable "IMS_LaF_ForceMana" > 0.1)then{
       _mana = _unit getVariable "IMS_LaF_ForceMana";
-      player setAnimSpeedCoef 5;
-      player setFatigue 0;
-      player enableFatigue false;
+      _unit setAnimSpeedCoef 5; // +к скорости
+      _unit setFatigue 0;// Стамина на макс
+      _unit enableFatigue false; // выкл. стамину
+      [_unit, "FP_Pull", 10, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf"; // Звук на активацию
+      // Прикрепление эффекта на игрока под действием способности
+      [_unit, {
+        _object = _unit;
+        _gravi1 = "#particlesource" createVehicle getpos _object;  
+        _gravi1 setParticleCircle [0, [0.1, 0.1, 0.1]]; 
+        _gravi1 setParticleRandom [0, [0, 0.1, 1], [0.1, 0, 0.1], 0, 0.1, [0, 0, 0, 0.1], 0, 0]; 
+        _gravi1 setParticleParams [["\A3\data_f\ParticleEffects\Universal\Refract", 1, 0, 1], "", "Billboard", 1, 4, [0, 0, 0], [0, 0, 0.5], 9, 10, 7.9, 0.1, [0.6, 1, 0.9, 0.8], [[0.1, 0.1, 0.1, 1], [0.25, 0.25, 0.25, 0.5], [0.5, 0.5, 0.5, 0]], [0, 0.1, 0.2, 0.5, 0.1, 0.1], 0, 0, "", "", _object]; 
+        _gravi1 setDropInterval 0.1;  
+        _gravi1 attachTo [_unit];
+      }] remoteExec ["spawn", [0,-2] select isDedicated,false];
       while {_unit getVariable "IMS_LaF_ForceMana" > 0} do {
-        _mana = _mana - 0.1;
+        _mana = _mana - 0.05;
+        _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
         sleep 1;
       };
-      player setAnimSpeedCoef 1;
-      player enableFatigue true;
+      deleteVehicle _gravi1;
+      _unit setAnimSpeedCoef 1;
+      _unit enableFatigue true;
   };
   };
 };

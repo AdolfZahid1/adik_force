@@ -18,6 +18,10 @@
 				<English>Pushup player</English>
 				<Russian>Заставить игрока отжиматся</Russian>
 			</Key>
+			<Key ID = "STR_SW_SPD">
+				<English>Force speed</English>
+				<Russian>Скорость Силы</Russian>
+			</Key>
 		</Container>
 	</Package>	
 </Project>
