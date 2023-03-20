@@ -41,7 +41,7 @@ if (_stance == 1) exitWith{
 
 if (_stance == 2)exitWith{
   //оглушение эйс типа
-   if ("Force_oglushenie" in magazines _unit)then{
+   if (("Force_oglushenie" in magazines _unit) && (("Force_tir_1" in magazines _unit) or ("Force_tir_2" in magazines _unit) or ("Force_tir_3" in magazines _unit) or ("Force_tir_Sith" in magazines _unit)))then{
      if (!(alive _unit))exitWith{};
      if (cursorObject isKindOf "Man")then {
       _actualTarget= cursorObject;
@@ -89,7 +89,7 @@ if (_stance == 2)exitWith{
 
 if (_stance == 3) exitWith {
   // заставить юнита сдатся
-  if ("Force_conviction" in magazines _unit)then{
+  if (("Force_conviction" in magazines _unit) && (("Force_tir_1" in magazines _unit) or ("Force_tir_2" in magazines _unit) or ("Force_tir_3" in magazines _unit) or ("Force_tir_Sith" in magazines _unit)))then{
     if(!(alive _unit))exitWith{};
     if (cursorObject isKindOf "Man")then {
       _actualTarget= cursorObject;
@@ -164,7 +164,7 @@ if (_stance == 4)exitWith{
 };
 
 if (_stance == 5)exitWith{
-  if ("Force_speed" in magazines _unit)then{
+  if (("Force_speed" in magazines _unit ) && (("Force_tir_1" in magazines _unit) or ("Force_tir_2" in magazines _unit) or ("Force_tir_3" in magazines _unit) or ("Force_tir_Sith" in magazines _unit)))then{
     if(!(alive _unit))exitWith{};
     if (_unit getVariable "IMS_LaF_ForceMana" > 0.1)then{
       _mana = _unit getVariable "IMS_LaF_ForceMana";
@@ -175,6 +175,8 @@ if (_stance == 5)exitWith{
         _mana = _mana - 0.1;
         sleep 1;
       };
+      player setAnimSpeedCoef 1;
+      player enableFatigue true;
   };
   };
 };
