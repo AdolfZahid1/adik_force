@@ -176,9 +176,6 @@ if (_stance == 5)exitWith{
     };
     if (_unit getVariable "IMS_LaF_ForceMana" > 0.1)then{
       _mana = _unit getVariable "IMS_LaF_ForceMana";
-      _unit setAnimSpeedCoef 5; // +к скорости
-      _unit setFatigue 0;// Стамина на макс
-      _unit enableFatigue false; // выкл. стамину
       _unit setVariable ["SpeedForce",true,true];
       [_unit, "FP_Pull", 10, 7] execVM "\WebKnight_StarWars_Mechanic\createSoundGlobal.sqf"; // Звук на активацию
       // Прикрепление эффекта на игрока под действием способности
@@ -192,6 +189,9 @@ if (_stance == 5)exitWith{
         _gravi1 attachTo [_unit];
       }] remoteExec ["spawn", [0,-2] select isDedicated,false];
       while {_unit getVariable "IMS_LaF_ForceMana" > 0 && _unit getVariable "SpeedForce" == true} do {
+        _unit setAnimSpeedCoef 5; // +к скорости
+        _unit setFatigue 0;// Стамина на макс
+        _unit enableFatigue false; // выкл. стамину
         _mana = _mana - 0.05;
         _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
         sleep 1;
@@ -453,4 +453,31 @@ sleep 0.001;
 _unit setVariable ["canMakeAttack",0];
 };
 };
+};
+if (_stance == 9) exitWith{
+  if (("Force_Stealth" in magazines _unit) && (("Force_tir_1" in magazines _unit) or ("Force_tir_2" in magazines _unit) or ("Force_tir_3" in magazines _unit) or ("Force_tir_Sith" in magazines _unit)))then{
+    if(!(alive _unit))exitWith{};
+    if (_unit getVariable "Stealth" == true)exitWith{
+      [_unit, false] remoteExec ["hideObjectGlobal", 0];
+      _unit setUnitTrait ["audibleCoef", 1];
+      _unit setUnitTrait ["camouflageCoef", 1];
+      _unit setVariable ["Stealth",false,true];
+    };
+    if (_unit getVariable "IMS_LaF_ForceMana" > 0.001)then{
+      _mana = _unit getVariable "IMS_LaF_ForceMana";
+      [_unit, true] remoteExec ["hideObjectGlobal", 0];
+			_unit allowDamage true;
+      _unit setVariable ["Stealth",true,true];
+      _unit setUnitTrait ["audibleCoef", 0.001];
+      _unit setUnitTrait ["camouflageCoef", 0.001];
+       while {_unit getVariable "IMS_LaF_ForceMana" > 0 && _unit getVariable "Stealth" == true} do {
+        _mana = _mana - 0.001;
+        _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
+        sleep 1;
+      };
+      _unit setVariable ["Stealth",false,true];
+      _unit setUnitTrait ["audibleCoef", 1];
+      _unit setUnitTrait ["camouflageCoef", 1];
+    };
+  };
 };

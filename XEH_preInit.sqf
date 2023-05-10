@@ -22,3 +22,6 @@
 ["WebKnight's Force Use addition", "adik_ForceUse_FireOrb", [localize "STR_SW_FORCEFIREORB", "Create fireball that will illuminate your surroundings"], { 
 [player, 8] execVM "\adik_force\ForceUse.sqf";
 }, {}, [8, [false, true, false]]] call cba_fnc_addKeybind; 
+["WebKnight's Force Use addition", "adik_ForceUse_Stealth", [localize "STR_SW_STH", "Enter invisible mode"], { 
+[player, 9] execVM "\adik_force\ForceUse.sqf";
+}, {}, [25, [false, true, false]]] call cba_fnc_addKeybind; 

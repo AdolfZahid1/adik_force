@@ -48,4 +48,8 @@ class CfgMagazines
 	{
 		displayName = "Force speed";
 	};
+	class Force_Stealth: Force_freeze
+	{
+		displayName = "Force stealth";
+	};
 };
