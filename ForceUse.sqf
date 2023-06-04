@@ -471,7 +471,8 @@ if (_stance == 9) exitWith{
       _unit setUnitTrait ["audibleCoef", 0.001];
       _unit setUnitTrait ["camouflageCoef", 0.001];
        while {_unit getVariable "IMS_LaF_ForceMana" > 0 && _unit getVariable "Stealth" == true} do {
-        _mana = _mana - 0.001;
+        if (currentWeapon _unit != "")exitWith{};
+        _mana = _mana - 0.01;
         _unit setVariable ["IMS_LaF_ForceMana",_mana,true];
         sleep 1;
       };
