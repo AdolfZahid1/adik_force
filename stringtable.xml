@@ -26,6 +26,22 @@
 				<English>Force stealth</English>
 				<Russian>Маскировка Силы</Russian>
 			</Key>
+			<Key ID = "STR_distance_For_Vehicle_Kill">
+				<English>Vehicle kill distance</English>
+				<Russian>Расстояние унич. техники</Russian>
+			</Key>
+			<Key ID = "STR_Mana_to_use_Stealth">
+				<English>Vehicle kill distance</English>
+				<Russian>Расстояние унич. техники</Russian>
+			</Key>
+			<Key ID = "STR_distance_For_Vehicle_Kill">
+				<English>Vehicle kill distance</English>
+				<Russian>Расстояние унич. техники</Russian>
+			</Key>
+			<Key ID = "STR_distance_For_Vehicle_Kill">
+				<English>Vehicle kill distance</English>
+				<Russian>Расстояние унич. техники</Russian>
+			</Key>
 		</Container>
 	</Package>	
 </Project>

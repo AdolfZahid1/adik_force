@@ -25,3 +25,40 @@
 ["WebKnight's Force Use addition", "adik_ForceUse_Stealth", [localize "STR_SW_STH", "Enter invisible mode"], { 
 [player, 9] execVM "\adik_force\ForceUse.sqf";
 }, {}, [25, [false, true, false]]] call cba_fnc_addKeybind; 
+
+[
+    "distanceForVehicleKill",
+    "SLIDER",
+    "$STR_distance_For_Vehicle_Kill",
+	"WebKnight's Force Use addition",
+    [2,15,6,1],
+    true,
+    {}
+] call CBA_fnc_addSetting;
+[
+    "manaToUseStealth",
+    "SLIDER",
+    "$STR_Mana_to_use_Stealth",
+	"WebKnight's Force Use addition",
+    [0.001,1,0.001,0.01],
+    true,
+    {}
+] call CBA_fnc_addSetting;
+[
+    "stealthManaConsumption",
+    "SLIDER",
+    "$STR_stealth_Mana_Consumption",
+	"WebKnight's Force Use addition",
+    [0.01,1,0.01,0.05],
+    true,
+    {}
+] call CBA_fnc_addSetting;
+[
+    "speedForceManaConsumption",
+    "SLIDER",
+    "$STR_speed_Force_Mana_Consumption",
+	"WebKnight's Force Use addition",
+    [0.01,1,0.01,0.05],
+    true,
+    {}
+] call CBA_fnc_addSetting;
