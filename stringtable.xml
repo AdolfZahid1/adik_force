@@ -31,16 +31,16 @@
 				<Russian>Расстояние унич. техники</Russian>
 			</Key>
 			<Key ID = "STR_Mana_to_use_Stealth">
-				<English>Vehicle kill distance</English>
-				<Russian>Расстояние унич. техники</Russian>
+				<English>Mana to use stealth</English>
+				<Russian>Кол-во маны для невидимости</Russian>
 			</Key>
-			<Key ID = "STR_distance_For_Vehicle_Kill">
-				<English>Vehicle kill distance</English>
-				<Russian>Расстояние унич. техники</Russian>
+			<Key ID = "STR_stealth_Mana_Consumption">
+				<English>Stealth mana consumption</English>
+				<Russian>Кол-во маны которое тратится на невидимость</Russian>
 			</Key>
-			<Key ID = "STR_distance_For_Vehicle_Kill">
-				<English>Vehicle kill distance</English>
-				<Russian>Расстояние унич. техники</Russian>
+			<Key ID = "STR_speed_Force_Mana_Consumption">
+				<English>Speed mana consumption</English>
+				<Russian>Кол-во маны которое тратится на скорость</Russian>
 			</Key>
 		</Container>
 	</Package>	

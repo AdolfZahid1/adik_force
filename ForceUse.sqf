@@ -184,8 +184,8 @@ if (_stance == 5) then {
         _unit setFatigue 0; // Set fatigue to maximum
         _unit enableFatigue false; // Disable fatigue
         _mana = _unit getVariable "IMS_LaF_ForceMana";
-        _mana = _mana - speedForceManaConsumption;
-        _unit setVariable ["IMS_LaF_ForceMana", _mana, true];
+        _mana = _mana - (speedForceManaConsumption/100);
+        _unit setVariable ["IMS_LaF_ForceMana", _mana, true];-
         sleep 1;
       };
       
@@ -476,7 +476,7 @@ if (_stance == 9) then {
       _unit setVariable ["Stealth", false, true];
     };
     
-    if (_unit getVariable "IMS_LaF_ForceMana" > manaToUseStealth) then {
+    if (_unit getVariable "IMS_LaF_ForceMana" > (manaToUseStealth/100)) then {
       [_unit, true] remoteExec ["hideObjectGlobal", 0];
       _unit allowDamage true;
       _unit setVariable ["Stealth", true, true];
@@ -486,7 +486,7 @@ if (_stance == 9) then {
       while {_unit getVariable "IMS_LaF_ForceMana" > 0 && _unit getVariable "Stealth" == true} do {
         if (currentWeapon _unit != "") exitWith {};
         _mana = _unit getVariable "IMS_LaF_ForceMana";
-        _mana = _mana - stealthManaConsumption;
+        _mana = _mana - (stealthManaConsumption/100);
         _unit setVariable ["IMS_LaF_ForceMana", _mana, true];
         sleep 1;
       };

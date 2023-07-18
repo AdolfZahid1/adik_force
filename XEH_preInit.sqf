@@ -40,7 +40,7 @@
     "SLIDER",
     "$STR_Mana_to_use_Stealth",
 	"WebKnight's Force Use addition",
-    [0.001,1,0.001,0.01],
+    [1,100,1,20],
     true,
     {}
 ] call CBA_fnc_addSetting;
@@ -49,7 +49,7 @@
     "SLIDER",
     "$STR_stealth_Mana_Consumption",
 	"WebKnight's Force Use addition",
-    [0.01,1,0.01,0.05],
+    [1,100,1,20],
     true,
     {}
 ] call CBA_fnc_addSetting;
@@ -58,7 +58,7 @@
     "SLIDER",
     "$STR_speed_Force_Mana_Consumption",
 	"WebKnight's Force Use addition",
-    [0.01,1,0.01,0.05],
+    [1,100,1,20],
     true,
     {}
 ] call CBA_fnc_addSetting;
