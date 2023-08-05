@@ -39,4 +39,4 @@
     {}
 ] call CBA_fnc_addSetting;
 
-[] execVM "${Binds.sqf}";
+[] execVM "\adik_force\Binds.sqf";

@@ -234,8 +234,8 @@ if (_stance == 7) then {
     [_unit, "Mortar_Gunner"] remoteExec ["switchMove", 0];
     for "_i" from 1 to 5 do {
       for "_i" from 1 to 10 do {
-        _randx = random[1,50] + _posx;
-        _randz = random[1,50] + _posz;
+        _randx = random[1,50,50] + _posx;
+		    _randz = random[1,50,50] + _posz;
         private _tempTarget = createSimpleObject ["Land_HelipadEmpty_F", [_randx,_randz,_pos select 2]]; 
         [_tempTarget, nil, true] spawn BIS_fnc_moduleLightning;
       };
