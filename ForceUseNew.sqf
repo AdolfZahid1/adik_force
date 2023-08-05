@@ -223,3 +223,25 @@ if (_stance == 6) then {
     };
   };
 };
+
+if (_stance == 7) then {
+  // Шторм Силы
+  if (("Force_Storm" in magazines _unit) && (("Force_tir_1" in magazines _unit) or ("Force_tir_2" in magazines _unit) or ("Force_tir_3" in magazines _unit) or ("Force_tir_Sith"  in magazines _unit))) then {
+    if (!(alive _unit) || (_unit getVariable "IMS_LaF_ForceMana" < 0.7)) exitWith {};
+    _pos = getPosASL cursorObject;
+    _posz = _pos select 1;
+    _posx = _pos select 0;
+    [_unit, "Mortar_Gunner"] remoteExec ["switchMove", 0];
+    for "_i" from 1 to 5 do {
+      for "_i" from 1 to 10 do {
+        _randx = random[1,50] + _posx;
+        _randz = random[1,50] + _posz;
+        private _tempTarget = createSimpleObject ["Land_HelipadEmpty_F", [_randx,_randz,_pos select 2]]; 
+        [_tempTarget, nil, true] spawn BIS_fnc_moduleLightning;
+      };
+      sleep 1;
+    };
+    [_unit, ""] remoteExec ["switchMove", 0];  
+    
+  };
+};
