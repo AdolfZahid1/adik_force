@@ -42,6 +42,10 @@
 				<English>Speed mana consumption</English>
 				<Russian>Кол-во маны которое тратится на скорость</Russian>
 			</Key>
+			<Key ID = "STR_SW_STO">
+				<English>Force Storm</English>
+				<Russian>Шторм Силы</Russian>
+			</Key>
 		</Container>
 	</Package>	
 </Project>
